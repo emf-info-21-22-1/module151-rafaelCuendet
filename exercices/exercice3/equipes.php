@@ -13,7 +13,20 @@
       </tr>
       <?php
         require('ctrl.php');
-        // A compléter....
+
+        $equipes = getEquipes();
+        $length = count($equipes);
+        
+        for ($i = 0; $i < $length; $i++) {
+          $numLigne = $i + 1;
+          echo "<tr>";
+          echo "<td>".$numLigne."</td>";
+          echo "<td>".$equipes[$i]."</td>";
+          echo "</tr>";
+          
+      }
+
+        
       ?>
       </table>
     </div>
