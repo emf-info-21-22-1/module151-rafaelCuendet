@@ -7,7 +7,7 @@ class equipe{
 
     public function __construct($PK_equipe, $Nom){
         $this->PK_equipe = $PK_equipe;
-        $this->Non = $Nom;
+        $this->Nom = $Nom;
     }
 
     public function getIdEquipe(){

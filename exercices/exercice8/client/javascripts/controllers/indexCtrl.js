@@ -21,6 +21,9 @@ function chargerTeamSuccess(data, text, jqXHR) {
         equipe.setNom($(this).find("nom").text());
         cmbEquipes.options[cmbEquipes.options.length] = new Option(equipe, JSON.stringify(equipe));
     });
+     // Clear the players dropdown when loading new teams
+     var cmbJoueurs = document.getElementById("cmbJoueurs");
+     cmbJoueurs.options.length = 0;
 }
 
 /**
@@ -32,7 +35,8 @@ function chargerTeamSuccess(data, text, jqXHR) {
 function chargerPlayerSuccess(data, text, jqXHR) {
 	// Appelé lorsque la liste des joueurs est reçue
     var cmbJoueurs = document.getElementById("cmbJoueurs");
-	// A COMPLETER!!! selon la logique suivante:
+    cmbJoueurs.options.length = 0;
+	
     $(data).find("joueur").each(function() {
         var joueur = new Joueur();
         joueur.setNom($(this).find("nom").text());
