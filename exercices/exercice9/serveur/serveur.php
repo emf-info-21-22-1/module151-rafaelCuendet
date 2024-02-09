@@ -1,6 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-session_start(); // Initialize session at the beginning of the script
+header('Access-Control-Allow-Origin: http://localhost:8081');
+header('Access-Control-Allow-Credentials: true');
+session_start(); // Initialize session at the beginnisng of the script
 
 // Handle POST requests
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

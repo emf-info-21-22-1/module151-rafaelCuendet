@@ -18,6 +18,9 @@ function chargerPersonnel(successCallback, errorCallback) {
         dataType: "xml",
         url: BASE_URL,
         data: 'action=getInfos',
+        xhrFields: {
+            withCredentials: true
+        },
         success: successCallback,
         error: errorCallback
     });
@@ -36,6 +39,9 @@ function connect(passwd, successCallback, errorCallback) {
         dataType: "xml",
         url: BASE_URL,
         data: 'action=connect&password=' + passwd,
+        xhrFields: {
+            withCredentials: true
+        },
         success: successCallback,
         error: errorCallback
     });
@@ -53,6 +59,9 @@ function disconnect(successCallback, errorCallback) {
         dataType: "xml",
         url: BASE_URL,
         data: 'action=disconnect',
+        xhrFields: {
+            withCredentials: true
+        },
         success: successCallback,
         error: errorCallback
     });
