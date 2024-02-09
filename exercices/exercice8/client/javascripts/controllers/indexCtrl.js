@@ -15,15 +15,12 @@ function chargerTeamSuccess(data, text, jqXHR) {
 	// Appelé lorsque la liste des équipes est reçue
     var cmbEquipes = document.getElementById("cmbEquipes");
     cmbEquipes.options.length = 0;
-    $(data).find("equipe").each(function() {
-        var equipe = new Equipe();
-        equipe.setPk($(this).find("id").text());
-        equipe.setNom($(this).find("nom").text());
-        cmbEquipes.options[cmbEquipes.options.length] = new Option(equipe, JSON.stringify(equipe));
+    data.forEach(function(equipe) {
+        cmbEquipes.options[cmbEquipes.options.length] = new Option(equipe.nom, equipe.id);
     });
-     // Clear the players dropdown when loading new teams
-     var cmbJoueurs = document.getElementById("cmbJoueurs");
-     cmbJoueurs.options.length = 0;
+    if (cmbJoueurs) {
+        cmbJoueurs.options.length = 0;
+    }
 }
 
 /**
@@ -37,11 +34,8 @@ function chargerPlayerSuccess(data, text, jqXHR) {
     var cmbJoueurs = document.getElementById("cmbJoueurs");
     cmbJoueurs.options.length = 0;
 	
-    $(data).find("joueur").each(function() {
-        var joueur = new Joueur();
-        joueur.setNom($(this).find("nom").text());
-        joueur.setPoints($(this).find("points").text());
-	    cmbJoueurs.options[cmbJoueurs.options.length] = new Option(joueur, JSON.stringify(joueur));
+    data.forEach(function(joueur) {
+        cmbJoueurs.options[cmbJoueurs.options.length] = new Option(joueur.nom + " (" + joueur.points + " points)", joueur.id);
     });
     }
 

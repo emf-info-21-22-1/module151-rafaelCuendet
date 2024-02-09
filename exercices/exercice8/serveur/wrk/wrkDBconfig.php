@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'host.docker.internal');
 define('DB_NAME', 'hockey_stats');
