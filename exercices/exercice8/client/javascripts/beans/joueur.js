@@ -42,3 +42,11 @@ Joueur.prototype.toString = function () {
 Joueur.prototype.getPoints = function () {
   return this.points;
 };
+
+/**
+ * Retourne la nom de l'équipe
+ * @returns La nom de l'équipe
+ */
+Joueur.prototype.getNom = function () {
+  return this.nom;
+};

@@ -36,6 +36,13 @@ Equipe.prototype.setPk = function(pk) {
 Equipe.prototype.toString = function () {
   return this.nom;
 };
+/**
+ * Retourne la nom de l'équipe
+ * @returns La nom de l'équipe
+ */
+Equipe.prototype.getNom = function () {
+  return this.nom;
+};
 
 /**
  * Retourne la pk de l'équipe

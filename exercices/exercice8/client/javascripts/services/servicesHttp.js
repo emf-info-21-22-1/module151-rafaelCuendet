@@ -5,8 +5,7 @@
  * @version 1.0 / 20-SEP-2013
  */
 
-var BASE_URL = "http://localhost:8080/serveur/joueurs.php";
-//var BASE_URL = "https://cuendetdecarvalr.emf-informatique.ch/serveur/joueurs.php";
+var BASE_URL = "http://localhost:8080/serveur/main.php";
 
 /**
  * Fonction permettant de charger les données d'équipe.
@@ -16,7 +15,7 @@ var BASE_URL = "http://localhost:8080/serveur/joueurs.php";
 function chargerTeam(successCallback, errorCallback) {
     $.ajax({
         type: "GET",
-        dataType: "JSON",
+        dataType: "xml",
         url: BASE_URL,
         data: 'action=equipe',
         success: successCallback,
@@ -34,7 +33,7 @@ function chargerTeam(successCallback, errorCallback) {
 function chargerPlayers(teamid, successCallback, errorCallback) {
     $.ajax({
         type: "GET",
-        dataType: "JSON",
+        dataType: "xml",
         url: BASE_URL,
         data: 'action=joueur&equipeId=' + teamid,
         success: successCallback,

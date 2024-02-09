@@ -12,15 +12,14 @@
  * @param {type} jqXHR
  */
 function chargerTeamSuccess(data, text, jqXHR) {
-	// Appelé lorsque la liste des équipes est reçue
     var cmbEquipes = document.getElementById("cmbEquipes");
     cmbEquipes.options.length = 0;
-    data.forEach(function(equipe) {
-        cmbEquipes.options[cmbEquipes.options.length] = new Option(equipe.nom, equipe.id);
+    $(data).find("equipe").each(function() {
+        var equipe = new Equipe();
+        equipe.setPk($(this).find("id").text());
+        equipe.setNom($(this).find("nom").text());
+		cmbEquipes.options[cmbEquipes.options.length] = new Option(equipe.getNom(), equipe.getPk());
     });
-    if (cmbJoueurs) {
-        cmbJoueurs.options.length = 0;
-    }
 }
 
 /**
@@ -30,14 +29,15 @@ function chargerTeamSuccess(data, text, jqXHR) {
  * @param {type} jqXHR
  */
 function chargerPlayerSuccess(data, text, jqXHR) {
-	// Appelé lorsque la liste des joueurs est reçue
     var cmbJoueurs = document.getElementById("cmbJoueurs");
-    cmbJoueurs.options.length = 0;
-	
-    data.forEach(function(joueur) {
-        cmbJoueurs.options[cmbJoueurs.options.length] = new Option(joueur.nom + " (" + joueur.points + " points)", joueur.id);
+    cmbJoueurs.options.length = 0;	
+    $(data).find("joueur").each(function() {
+        var joueur = new Joueur();
+        joueur.setPoints($(this).find("points").text());
+        joueur.setNom($(this).find("nom").text());
+		cmbJoueurs.options[cmbJoueurs.options.length] = new Option(joueur.getNom(), joueur.getPoints());
     });
-    }
+}
 
 /**
  * Méthode appelée en cas d'erreur lors de la lecture du webservice
@@ -79,16 +79,45 @@ $(document).ready(function() {
         chargerTeam(chargerTeamSuccess, chargerTeamError);
     });
 
-	// Ce qui se passe lorsque l'on sélectionne une équipe
     cmbEquipes.change(function(event) {
-        equipe = this.options[this.selectedIndex].value;
-        chargerPlayers(JSON.parse(equipe).pk, chargerPlayerSuccess, chargerPlayerError);
+        var selectedIndex = this.selectedIndex;
+        if (selectedIndex !== -1) {
+            var equipe = this.options[selectedIndex].value;
+            try {
+                var equipeData = JSON.parse(equipe);
+                
+                    chargerPlayers(equipeData, chargerPlayerSuccess, chargerPlayerError);
+                
+            } catch (error) {
+                // Handle JSON parsing error
+                console.error('Error parsing JSON:', error);
+            }
+        } else {
+            // Handle case where no option is selected
+            console.error('No option selected.');
+        }
     });
-	
-	// Ce qui se passe lorsque l'on sélectionne une joueur
+    
     cmbJoueurs.change(function(event) {
-        joueur = this.options[this.selectedIndex].value;
-        alert(JSON.parse(joueur).nom + ": " + JSON.parse(joueur).points + " points");
+        var selectedIndex = this.selectedIndex;
+        if (selectedIndex !== -1) {
+            var joueur = this.options[selectedIndex].value;
+            try {
+                var joueurData = JSON.parse(joueur);
+                if (joueurData && joueurData.nom && joueurData.points) {
+                    alert(joueurData.nom + ": " + joueurData.points + " points");
+                } else {
+                    // Handle case where JSON data or required properties are missing
+                    console.error('Invalid JSON data or missing required properties.');
+                }
+            } catch (error) {
+                // Handle JSON parsing error
+                console.error('Error parsing JSON:', error);
+            }
+        } else {
+            // Handle case where no option is selected
+            console.error('No option selected.');
+        }
     });
+    
 });
-
