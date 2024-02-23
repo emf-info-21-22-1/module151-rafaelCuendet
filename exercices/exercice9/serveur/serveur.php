@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         echo '<result>false</result>';
-    }
+    } 
 }
 
 // Handle GET requests

@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 include_once './controllers/MessageManager.php';
 
     if (isset($_SERVER['REQUEST_METHOD']))
